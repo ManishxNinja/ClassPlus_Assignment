@@ -59,11 +59,6 @@ export default function LoginPage() {
           Create an account with email and password, add your name and photo, then layer them onto beautiful templates
           and share the finished card in one tap.
         </p>
-        <ul className="flex flex-wrap gap-3 text-sm text-zinc-600">
-          <li className="rounded-full bg-white/60 px-3 py-1 ring-1 ring-white/80">PostgreSQL (Neon) + Prisma</li>
-          <li className="rounded-full bg-white/60 px-3 py-1 ring-1 ring-white/80">JWT session</li>
-          <li className="rounded-full bg-white/60 px-3 py-1 ring-1 ring-white/80">Share merged PNG</li>
-        </ul>
       </div>
 
       <div className="flex w-full flex-col items-stretch lg:max-w-md">

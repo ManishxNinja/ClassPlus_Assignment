@@ -21,7 +21,7 @@ export default function RegisterPage() {
           Join the studio
         </h1>
         <p className="text-base leading-relaxed text-zinc-600">
-          We store your email, a hashed password, and your display name and profile photo in Neon via Prisma.
+          Your email, password, name, and profile photo are saved securely so you can sign in from any device.
         </p>
       </div>
 
