@@ -1,17 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 
 interface ProfileSetupProps {
   defaultName?: string;
+  defaultImageDataUrl?: string;
   onSubmit: (value: { name: string; imageDataUrl: string }) => void;
 }
 
-export default function ProfileSetup({ defaultName, onSubmit }: ProfileSetupProps) {
+export default function ProfileSetup({
+  defaultName,
+  defaultImageDataUrl,
+  onSubmit,
+}: ProfileSetupProps) {
   const [name, setName] = useState(defaultName ?? "");
-  const [imageDataUrl, setImageDataUrl] = useState<string>("");
+  const [imageDataUrl, setImageDataUrl] = useState(defaultImageDataUrl ?? "");
+
+  useEffect(() => {
+    if (defaultName) setName(defaultName);
+  }, [defaultName]);
+
+  useEffect(() => {
+    if (defaultImageDataUrl) setImageDataUrl(defaultImageDataUrl);
+  }, [defaultImageDataUrl]);
 
   const canContinue = Boolean(name.trim() && imageDataUrl);
 

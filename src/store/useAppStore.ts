@@ -27,6 +27,8 @@ interface AppState {
   hydrated: boolean;
   isAuthenticated: boolean;
   authMethod: AuthMethod | null;
+  /** Last email used on this device (prefill after sign out). */
+  lastUsedEmail: string | null;
   profile: Profile | null;
   isPremium: boolean;
   selectedCategory: TemplateCategory | "All";
@@ -37,6 +39,7 @@ interface AppState {
   setHydrated: (hydrated: boolean) => void;
   login: () => void;
   logout: () => void;
+  setLastUsedEmail: (email: string | null) => void;
   setProfile: (profile: Profile) => void;
   setPremium: (value: boolean) => void;
   setSelectedCategory: (category: TemplateCategory | "All") => void;
@@ -62,6 +65,7 @@ export const useAppStore = create<AppState>()(
       hydrated: false,
       isAuthenticated: false,
       authMethod: null,
+      lastUsedEmail: null,
       profile: null,
       isPremium: false,
       selectedCategory: "All",
@@ -78,11 +82,11 @@ export const useAppStore = create<AppState>()(
         set({
           isAuthenticated: false,
           authMethod: null,
-          profile: null,
           isPremium: false,
           pendingTemplateId: null,
           editor: defaultEditor,
         }),
+      setLastUsedEmail: (email) => set({ lastUsedEmail: email }),
       setProfile: (profile) => set({ profile }),
       setPremium: (value) => set({ isPremium: value }),
       setSelectedCategory: (category) => set({ selectedCategory: category }),
@@ -115,6 +119,7 @@ export const useAppStore = create<AppState>()(
       partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
         authMethod: state.authMethod,
+        lastUsedEmail: state.lastUsedEmail,
         profile: state.profile,
         isPremium: state.isPremium,
         selectedCategory: state.selectedCategory,

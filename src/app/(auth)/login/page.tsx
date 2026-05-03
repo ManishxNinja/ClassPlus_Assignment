@@ -11,7 +11,9 @@ export default function LoginPage() {
   const router = useRouter();
   const isAuthenticated = useAppStore((state) => state.isAuthenticated);
   const profile = useAppStore((state) => state.profile);
+  const lastUsedEmail = useAppStore((state) => state.lastUsedEmail);
   const login = useAppStore((state) => state.login);
+  const setLastUsedEmail = useAppStore((state) => state.setLastUsedEmail);
   const setProfile = useAppStore((state) => state.setProfile);
   const setHydrated = useAppStore((state) => state.setHydrated);
 
@@ -52,14 +54,23 @@ export default function LoginPage() {
       <div className="flex w-full flex-col items-stretch lg:max-w-md">
         {!isAuthenticated ? (
           <EmailLogin
-            onEmailLogin={(email) => {
+            key={lastUsedEmail ?? "no-saved-email"}
+            defaultEmail={lastUsedEmail ?? undefined}
+            onEmailLogin={async (email) => {
+              setLastUsedEmail(email);
+              const res = await signIn("email", { redirect: false, email });
+              if (!res?.ok) return;
               login();
-              void signIn("email", { redirect: false, email });
+              const saved = useAppStore.getState().profile;
+              if (saved?.name?.trim() && saved.imageDataUrl) {
+                router.replace("/home");
+              }
             }}
           />
         ) : (
           <ProfileSetup
             defaultName={profile?.name}
+            defaultImageDataUrl={profile?.imageDataUrl}
             onSubmit={(value) => {
               setProfile(value);
               router.push("/home");

@@ -4,10 +4,11 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 
 interface EmailLoginProps {
+  defaultEmail?: string;
   onEmailLogin: (email: string) => void;
 }
 
-export default function EmailLogin({ onEmailLogin }: EmailLoginProps) {
+export default function EmailLogin({ defaultEmail, onEmailLogin }: EmailLoginProps) {
   return (
     <Card className="w-full max-w-md">
       <form
@@ -30,6 +31,7 @@ export default function EmailLogin({ onEmailLogin }: EmailLoginProps) {
             type="email"
             autoComplete="email"
             required
+            defaultValue={defaultEmail ?? ""}
             placeholder="you@example.com"
             className="w-full rounded-xl border border-zinc-200 bg-white/90 px-4 py-3 text-sm text-zinc-900 shadow-inner outline-none ring-zinc-900/10 transition placeholder:text-zinc-400 focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary-muted)]"
           />
