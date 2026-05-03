@@ -5,9 +5,7 @@ import Button from "@/components/ui/Button";
 import {
   copyImageToClipboard,
   downloadBlob,
-  openInstagramWeb,
   openMailto,
-  openWhatsAppWithCaption,
   shareWithNativeSheet,
 } from "@/lib/share-actions";
 
@@ -100,6 +98,11 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
   if (!open) return null;
 
   const caption = `Greetings from ${userName} — made with Custom Greetings App`;
+  /** Keep wa.me URLs within practical limits */
+  const captionForUrl =
+    caption.length > 1600 ? `${caption.slice(0, 1597)}…` : caption;
+  const whatsappHref = `https://wa.me/?text=${encodeURIComponent(captionForUrl)}`;
+  const instagramHref = "https://www.instagram.com/";
 
   async function handleCopy() {
     if (!blob) return;
@@ -117,45 +120,32 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
     setToast({ message: "Download started.", tone: "ok" });
   }
 
-  async function handleWhatsApp() {
+  /** Runs after user taps a real `<a href>` — navigation is not blocked like `window.open`. */
+  async function copyCardAfterOpeningApp(kind: "whatsapp" | "instagram") {
     if (!blob) return;
-    // Open first (same synchronous click turn) so the browser does not block the new tab/window.
-    openWhatsAppWithCaption(caption);
     const ok = await copyImageToClipboard(blob);
     if (ok) {
       setToast({
-        message: "WhatsApp opened — paste your card (⌘V / Ctrl+V / long-press → Paste).",
+        message:
+          kind === "whatsapp"
+            ? "Tab opened — paste your card in WhatsApp (⌘V / Ctrl+V / long-press → Paste)."
+            : "Tab opened — paste into Story/Post or pick the PNG from Downloads if needed.",
         tone: "ok",
       });
       return;
     }
     downloadBlob(blob, filename);
     setToast({
-      message: "Couldn’t copy — PNG saved to Downloads. Attach it in WhatsApp.",
+      message:
+        kind === "whatsapp"
+          ? "Couldn’t copy — PNG saved. Attach it in WhatsApp."
+          : "Couldn’t copy — PNG saved. Upload from gallery in Instagram.",
       tone: "ok",
     });
   }
 
   function handleEmail() {
     openMailto(`Greeting from ${userName}`, `${caption}\n\n(Attach the downloaded PNG — use Download first.)`);
-  }
-
-  async function handleInstagram() {
-    if (!blob) return;
-    openInstagramWeb();
-    const ok = await copyImageToClipboard(blob);
-    if (ok) {
-      setToast({
-        message: "Instagram opened — paste into Story or Post (or New post → Gallery).",
-        tone: "ok",
-      });
-    } else {
-      downloadBlob(blob, filename);
-      setToast({
-        message: "Couldn’t copy — PNG saved. Open Photos/Gallery in Instagram to upload.",
-        tone: "ok",
-      });
-    }
   }
 
   async function handleNativeShare() {
@@ -166,7 +156,7 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
   }
 
   const optionBase =
-    "flex cursor-pointer flex-col items-center gap-3 rounded-2xl border border-zinc-200/90 bg-white p-4 text-center shadow-sm transition hover:border-violet-300 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40";
+    "flex cursor-pointer flex-col items-center gap-3 rounded-2xl border border-zinc-200/90 bg-white p-4 text-center text-zinc-900 no-underline shadow-sm transition hover:border-violet-300 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40";
 
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center">
@@ -208,15 +198,27 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
         ) : (
           <>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              <button type="button" className={optionBase} onClick={() => void handleWhatsApp()}>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={optionBase}
+                onClick={() => void copyCardAfterOpeningApp("whatsapp")}
+              >
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#25D366] text-white shadow-inner">
                   <IconWhatsApp className="h-7 w-7" />
                 </span>
                 <span className="text-sm font-semibold text-zinc-900">WhatsApp</span>
-                <span className="text-[11px] leading-tight text-zinc-500">Opens WhatsApp · copy & paste</span>
-              </button>
+                <span className="text-[11px] leading-tight text-zinc-500">Opens WhatsApp · paste image</span>
+              </a>
 
-              <button type="button" className={optionBase} onClick={() => void handleInstagram()}>
+              <a
+                href={instagramHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={optionBase}
+                onClick={() => void copyCardAfterOpeningApp("instagram")}
+              >
                 <span
                   className="flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-inner"
                   style={{
@@ -227,7 +229,7 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
                 </span>
                 <span className="text-sm font-semibold text-zinc-900">Instagram</span>
                 <span className="text-[11px] leading-tight text-zinc-500">Opens Instagram · paste image</span>
-              </button>
+              </a>
 
               <button type="button" className={optionBase} onClick={handleEmail}>
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-800 text-white shadow-inner">
@@ -265,8 +267,8 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
             </div>
 
             <p className="mt-4 rounded-xl bg-zinc-50 px-3 py-2 text-[11px] leading-relaxed text-zinc-500">
-              WhatsApp and Instagram open right away; we copy the image next so you can paste. If copy isn&apos;t
-              supported, use Download and attach the PNG.
+              These buttons open a new tab like a normal link (works when pop-ups are blocked). We then copy your card so
+              you can paste. If copy fails, we save a PNG — use Download anytime.
             </p>
           </>
         )}
