@@ -7,7 +7,7 @@ import {
   downloadBlob,
   openInstagramWeb,
   openMailto,
-  openWhatsAppWeb,
+  openWhatsAppWithCaption,
   shareWithNativeSheet,
 } from "@/lib/share-actions";
 
@@ -119,21 +119,21 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
 
   async function handleWhatsApp() {
     if (!blob) return;
+    // Open first (same synchronous click turn) so the browser does not block the new tab/window.
+    openWhatsAppWithCaption(caption);
     const ok = await copyImageToClipboard(blob);
     if (ok) {
       setToast({
-        message: "Photo copied — open WhatsApp and paste (⌘V / Ctrl+V) to share.",
+        message: "WhatsApp opened — paste your card (⌘V / Ctrl+V / long-press → Paste).",
         tone: "ok",
       });
-      openWhatsAppWeb();
       return;
     }
     downloadBlob(blob, filename);
     setToast({
-      message: "Couldn’t copy — file saved to Downloads. Attach it in WhatsApp.",
+      message: "Couldn’t copy — PNG saved to Downloads. Attach it in WhatsApp.",
       tone: "ok",
     });
-    openWhatsAppWeb();
   }
 
   function handleEmail() {
@@ -142,17 +142,19 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
 
   async function handleInstagram() {
     if (!blob) return;
+    openInstagramWeb();
     const ok = await copyImageToClipboard(blob);
     if (ok) {
       setToast({
-        message: "Photo copied — open Instagram and paste into Story or Post.",
+        message: "Instagram opened — paste into Story or Post (or New post → Gallery).",
         tone: "ok",
       });
-      openInstagramWeb();
     } else {
       downloadBlob(blob, filename);
-      setToast({ message: "Image downloaded — upload from your gallery in the Instagram app.", tone: "ok" });
-      openInstagramWeb();
+      setToast({
+        message: "Couldn’t copy — PNG saved. Open Photos/Gallery in Instagram to upload.",
+        tone: "ok",
+      });
     }
   }
 
@@ -211,7 +213,7 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
                   <IconWhatsApp className="h-7 w-7" />
                 </span>
                 <span className="text-sm font-semibold text-zinc-900">WhatsApp</span>
-                <span className="text-[11px] leading-tight text-zinc-500">Copy & paste in chat</span>
+                <span className="text-[11px] leading-tight text-zinc-500">Opens WhatsApp · copy & paste</span>
               </button>
 
               <button type="button" className={optionBase} onClick={() => void handleInstagram()}>
@@ -224,7 +226,7 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
                   <IconInstagram className="h-7 w-7" />
                 </span>
                 <span className="text-sm font-semibold text-zinc-900">Instagram</span>
-                <span className="text-[11px] leading-tight text-zinc-500">Copy & open app</span>
+                <span className="text-[11px] leading-tight text-zinc-500">Opens Instagram · paste image</span>
               </button>
 
               <button type="button" className={optionBase} onClick={handleEmail}>
@@ -263,8 +265,8 @@ export default function ShareSheetModal({ open, onClose, blob, filename, userNam
             </div>
 
             <p className="mt-4 rounded-xl bg-zinc-50 px-3 py-2 text-[11px] leading-relaxed text-zinc-500">
-              Your card is copied as an image — paste into WhatsApp Web or the mobile app. If copy isn&apos;t supported,
-              we save the PNG so you can attach it manually.
+              WhatsApp and Instagram open right away; we copy the image next so you can paste. If copy isn&apos;t
+              supported, use Download and attach the PNG.
             </p>
           </>
         )}

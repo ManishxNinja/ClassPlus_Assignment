@@ -35,16 +35,12 @@ export function openMailto(subject: string, body: string) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
+/** Must be called synchronously from a click handler (before any await) so the popup is not blocked. */
 export function openWhatsAppWithCaption(caption: string) {
   window.open(`https://wa.me/?text=${encodeURIComponent(caption)}`, "_blank", "noopener,noreferrer");
 }
 
-/** WhatsApp Web — good place to paste an image from clipboard (desktop). */
-export function openWhatsAppWeb() {
-  window.open("https://web.whatsapp.com/", "_blank", "noopener,noreferrer");
-}
-
-/** Instagram has no web API to upload; we guide users to paste from clipboard after copy. */
+/** Instagram home — opens site/app; call synchronously from click (before await). */
 export function openInstagramWeb() {
   window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
 }
