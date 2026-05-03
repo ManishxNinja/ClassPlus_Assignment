@@ -1,0 +1,7 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1080" fill="#FDE68A"/>
+  <circle cx="930" cy="150" r="120" fill="#FB7185"/>
+  <circle cx="130" cy="920" r="180" fill="#A78BFA"/>
+  <text x="540" y="500" text-anchor="middle" font-size="90" font-family="Arial" font-weight="700" fill="#7C2D12">Happy Birthday</text>
+  <text x="540" y="590" text-anchor="middle" font-size="48" font-family="Arial" fill="#78350F">Celebrate your special day</text>
+</svg>

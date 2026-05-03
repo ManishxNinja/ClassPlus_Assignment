@@ -1,0 +1,7 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1080" fill="#D9F99D"/>
+  <circle cx="170" cy="170" r="130" fill="#86EFAC"/>
+  <circle cx="920" cy="910" r="160" fill="#4ADE80"/>
+  <text x="540" y="510" text-anchor="middle" font-size="96" font-family="Arial" font-weight="700" fill="#14532D">Thank You</text>
+  <text x="540" y="600" text-anchor="middle" font-size="44" font-family="Arial" fill="#166534">With heartfelt gratitude</text>
+</svg>

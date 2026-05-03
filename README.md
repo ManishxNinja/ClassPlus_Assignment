@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Custom Greetings App
 
-## Getting Started
+Custom Greetings App is a Next.js web app that lets users:
+- login (Google, Email, or Guest)
+- set profile name and photo
+- browse categorized greeting templates with live overlays
+- unlock premium templates via upsell flow
+- personalize and merge layers into a single image
+- share/download generated greetings
 
-First, run the development server:
+## Tech Stack
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS
+- Zustand (session/profile/editor state)
+- NextAuth (Google + credentials flow stubs for internship demo)
+- HTML Canvas API for image composition
+- Playwright for smoke E2E test
+
+## Project Structure
+
+- `src/app/(auth)/login/page.tsx`: login and profile setup flow
+- `src/app/(main)/home/page.tsx`: template listing, categories, premium gating
+- `src/app/(main)/editor/[templateId]/page.tsx`: editor route entrypoint
+- `src/components/templates/EditorClient.tsx`: personalization + compose + share
+- `src/components/templates/*`: template grid and live preview components
+- `src/components/premium/UpsellModal.tsx`: subscription/upsell popup
+- `src/store/useAppStore.ts`: persisted app state
+- `src/lib/image-composer.ts`: canvas merge utility
+- `src/data/templates.ts`: template catalog and categories
+- `docs/technical-approach.md`: architecture/challenges/future improvements
+
+## Setup
+
+### 1) Install dependencies
+
+```bash
+npm install
+```
+
+### 2) (Optional) Configure Google auth
+
+Create `.env.local`:
+
+```bash
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=replace-with-long-random-secret
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+```
+
+Without Google env values, app still supports Email and Guest demo flows.
+
+### 3) Run the app
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev`: run local dev server
+- `npm run build`: production build
+- `npm run start`: start production server
+- `npm run lint`: run ESLint
+- `npm run test:e2e`: run Playwright smoke test
 
-## Learn More
+## Demo Flow Checklist
 
-To learn more about Next.js, take a look at the following resources:
+Use this for internship submission recording:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Login (`Guest` or `Email` or `Google`)
+2. Complete profile setup (name + photo)
+3. Open home page and browse categories
+4. Click a premium template and show upsell popup
+5. Upgrade, open editor, adjust controls
+6. Generate merged output
+7. Share/download output image
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Known Constraints
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Web Share API behavior varies across browsers/devices.
+- For fully functional Google OAuth, valid credentials are required.
+- Current premium flow uses local simulated subscription state.

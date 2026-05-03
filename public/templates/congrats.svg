@@ -1,0 +1,6 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1080" fill="#E9D5FF"/>
+  <rect x="90" y="90" width="900" height="900" rx="120" fill="#DDD6FE"/>
+  <text x="540" y="510" text-anchor="middle" font-size="92" font-family="Arial" font-weight="700" fill="#5B21B6">Congratulations</text>
+  <text x="540" y="600" text-anchor="middle" font-size="44" font-family="Arial" fill="#6D28D9">You made it!</text>
+</svg>
