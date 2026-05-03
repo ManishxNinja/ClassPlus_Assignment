@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import UpsellModal from "@/components/premium/UpsellModal";
@@ -10,24 +10,25 @@ import CustomTemplateCreator from "@/components/templates/CustomTemplateCreator"
 import CategoryTabs from "@/components/templates/CategoryTabs";
 import TemplateGrid from "@/components/templates/TemplateGrid";
 import { TEMPLATES } from "@/data/templates";
+import { useSessionProfile } from "@/hooks/useSessionProfile";
 import { useAppStore } from "@/store/useAppStore";
 
 export default function HomePage() {
   const router = useRouter();
-  const profile = useAppStore((state) => state.profile);
+  const { name: profileName, imageDataUrl, hasProfileForEditor } = useSessionProfile();
   const isPremium = useAppStore((state) => state.isPremium);
   const selectedCategory = useAppStore((state) => state.selectedCategory);
   const setSelectedCategory = useAppStore((state) => state.setSelectedCategory);
   const setPremium = useAppStore((state) => state.setPremium);
   const setPendingTemplateId = useAppStore((state) => state.setPendingTemplateId);
-  const logout = useAppStore((state) => state.logout);
+  const clearLocalSession = useAppStore((state) => state.clearLocalSession);
   const userTemplates = useAppStore((state) => state.userTemplates);
   const addUserTemplate = useAppStore((state) => state.addUserTemplate);
   const removeUserTemplate = useAppStore((state) => state.removeUserTemplate);
   const [showUpsell, setShowUpsell] = useState(false);
 
-  const profileName = profile?.name ?? "Creator";
-  const profileImage = profile?.imageDataUrl ?? "/avatar-placeholder.svg";
+  const displayName = profileName?.trim() || "Creator";
+  const profileImage = imageDataUrl ?? "/avatar-placeholder.svg";
 
   const allTemplates = useMemo(() => [...TEMPLATES, ...userTemplates], [userTemplates]);
 
@@ -35,6 +36,16 @@ export default function HomePage() {
     () => TEMPLATES.filter((template) => template.premium).length,
     [],
   );
+
+  useEffect(() => {
+    if (!hasProfileForEditor) {
+      router.replace("/login");
+    }
+  }, [hasProfileForEditor, router]);
+
+  if (!hasProfileForEditor) {
+    return null;
+  }
 
   return (
     <AuthGate>
@@ -49,7 +60,7 @@ export default function HomePage() {
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-violet-700">Template studio</p>
               <h1 className="font-display text-2xl font-semibold text-zinc-900 sm:text-3xl">
-                Hello, {profileName}
+                Hello, {displayName}
               </h1>
               <p className="mt-1 max-w-lg text-sm leading-relaxed text-zinc-600">
                 Tap a card to edit and export, or upload your own background under Custom. Premium designs stay locked
@@ -71,7 +82,7 @@ export default function HomePage() {
               variant="outline"
               onClick={async () => {
                 await signOut({ redirect: false });
-                logout();
+                clearLocalSession();
                 router.replace("/login");
               }}
               className="px-5"
@@ -104,7 +115,7 @@ export default function HomePage() {
         <TemplateGrid
           templates={allTemplates}
           selectedCategory={selectedCategory}
-          userName={profileName}
+          userName={displayName}
           profileImage={profileImage}
           onRemoveCustom={removeUserTemplate}
           onSelectTemplate={(template) => {

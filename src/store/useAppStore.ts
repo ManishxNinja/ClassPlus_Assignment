@@ -5,13 +5,6 @@ import { persist } from "zustand/middleware";
 import type { GreetingTemplate } from "@/types/template";
 import { TemplateCategory } from "@/types/template";
 
-type AuthMethod = "email";
-
-interface Profile {
-  name: string;
-  imageDataUrl: string;
-}
-
 interface EditorSettings {
   textX: number;
   textY: number;
@@ -25,11 +18,8 @@ const MAX_USER_TEMPLATES = 12;
 
 interface AppState {
   hydrated: boolean;
-  isAuthenticated: boolean;
-  authMethod: AuthMethod | null;
-  /** Last email used on this device (prefill after sign out). */
+  /** Last email typed on this device (prefill sign-in). */
   lastUsedEmail: string | null;
-  profile: Profile | null;
   isPremium: boolean;
   selectedCategory: TemplateCategory | "All";
   pendingTemplateId: string | null;
@@ -37,10 +27,8 @@ interface AppState {
   /** User-uploaded backgrounds (stored as data URLs in localStorage). */
   userTemplates: GreetingTemplate[];
   setHydrated: (hydrated: boolean) => void;
-  login: () => void;
-  logout: () => void;
+  clearLocalSession: () => void;
   setLastUsedEmail: (email: string | null) => void;
-  setProfile: (profile: Profile) => void;
   setPremium: (value: boolean) => void;
   setSelectedCategory: (category: TemplateCategory | "All") => void;
   setPendingTemplateId: (templateId: string | null) => void;
@@ -63,31 +51,20 @@ export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
       hydrated: false,
-      isAuthenticated: false,
-      authMethod: null,
       lastUsedEmail: null,
-      profile: null,
       isPremium: false,
       selectedCategory: "All",
       pendingTemplateId: null,
       editor: defaultEditor,
       userTemplates: [],
       setHydrated: (hydrated) => set({ hydrated }),
-      login: () =>
+      clearLocalSession: () =>
         set({
-          isAuthenticated: true,
-          authMethod: "email",
-        }),
-      logout: () =>
-        set({
-          isAuthenticated: false,
-          authMethod: null,
           isPremium: false,
           pendingTemplateId: null,
           editor: defaultEditor,
         }),
       setLastUsedEmail: (email) => set({ lastUsedEmail: email }),
-      setProfile: (profile) => set({ profile }),
       setPremium: (value) => set({ isPremium: value }),
       setSelectedCategory: (category) => set({ selectedCategory: category }),
       setPendingTemplateId: (templateId) => set({ pendingTemplateId: templateId }),
@@ -117,10 +94,7 @@ export const useAppStore = create<AppState>()(
         state?.setHydrated(true);
       },
       partialize: (state) => ({
-        isAuthenticated: state.isAuthenticated,
-        authMethod: state.authMethod,
         lastUsedEmail: state.lastUsedEmail,
-        profile: state.profile,
         isPremium: state.isPremium,
         selectedCategory: state.selectedCategory,
         userTemplates: state.userTemplates,
@@ -128,4 +102,3 @@ export const useAppStore = create<AppState>()(
     },
   ),
 );
-

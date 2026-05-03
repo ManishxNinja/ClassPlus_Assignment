@@ -9,15 +9,16 @@ import { getTemplateById } from "@/data/templates";
 import type { GreetingTemplate } from "@/types/template";
 import ShareSheetModal from "@/components/share/ShareSheetModal";
 import { composeGreetingImage } from "@/lib/image-composer";
+import { useSessionProfile } from "@/hooks/useSessionProfile";
 import { useAppStore } from "@/store/useAppStore";
 
 export default function EditorClient({ templateId }: { templateId: string }) {
   const router = useRouter();
+  const { name, imageDataUrl, hasProfileForEditor } = useSessionProfile();
   const userTemplates = useAppStore((state) => state.userTemplates);
   const template = useMemo<GreetingTemplate | undefined>(() => {
     return getTemplateById(templateId) ?? userTemplates.find((t) => t.id === templateId);
   }, [templateId, userTemplates]);
-  const profile = useAppStore((state) => state.profile);
   const editor = useAppStore((state) => state.editor);
   const setEditor = useAppStore((state) => state.setEditor);
   const resetEditor = useAppStore((state) => state.resetEditor);
@@ -26,15 +27,26 @@ export default function EditorClient({ templateId }: { templateId: string }) {
   const [shareOpen, setShareOpen] = useState(false);
   const [shareBlob, setShareBlob] = useState<Blob | null>(null);
 
-  if (!template || !profile) {
+  if (!template || !hasProfileForEditor || !imageDataUrl) {
     return (
       <AuthGate>
         <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-4 py-16">
           <Card>
-            <p className="text-sm text-zinc-600">We couldn’t load this template or your profile.</p>
-            <Button variant="secondary" className="mt-4" onClick={() => router.push("/home")}>
-              Back to home
-            </Button>
+            <p className="text-sm text-zinc-600">
+              {!template
+                ? "We couldn’t load this template."
+                : "Add a profile name and photo to compose your card."}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Button variant="secondary" onClick={() => router.push("/home")}>
+                Back to home
+              </Button>
+              {!hasProfileForEditor && (
+                <Button variant="primary" onClick={() => router.push("/login")}>
+                  Complete profile
+                </Button>
+              )}
+            </div>
           </Card>
         </main>
       </AuthGate>
@@ -42,7 +54,7 @@ export default function EditorClient({ templateId }: { templateId: string }) {
   }
 
   const activeTemplate = template;
-  const activeProfile = profile;
+  const activeProfile = { name: name.trim() || "Creator", imageDataUrl };
 
   async function generateImage() {
     setBusy(true);

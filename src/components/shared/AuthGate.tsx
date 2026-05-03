@@ -2,12 +2,13 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useAppStore } from "@/store/useAppStore";
 
 export default function AuthGate({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const { status } = useSession();
   const hydrated = useAppStore((state) => state.hydrated);
-  const isAuthenticated = useAppStore((state) => state.isAuthenticated);
   const setHydrated = useAppStore((state) => state.setHydrated);
 
   useEffect(() => {
@@ -17,12 +18,12 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
   }, [hydrated, setHydrated]);
 
   useEffect(() => {
-    if (hydrated && !isAuthenticated) {
+    if (status === "unauthenticated") {
       router.replace("/login");
     }
-  }, [hydrated, isAuthenticated, router]);
+  }, [status, router]);
 
-  if (!hydrated || !isAuthenticated) {
+  if (status === "loading" || !hydrated) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4">
         <div
@@ -32,6 +33,10 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
         <p className="text-sm font-medium text-zinc-600">Preparing your studio…</p>
       </div>
     );
+  }
+
+  if (status === "unauthenticated") {
+    return null;
   }
 
   return <>{children}</>;

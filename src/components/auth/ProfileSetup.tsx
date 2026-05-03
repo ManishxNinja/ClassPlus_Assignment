@@ -7,12 +7,14 @@ import Card from "@/components/ui/Card";
 interface ProfileSetupProps {
   defaultName?: string;
   defaultImageDataUrl?: string;
+  busy?: boolean;
   onSubmit: (value: { name: string; imageDataUrl: string }) => void;
 }
 
 export default function ProfileSetup({
   defaultName,
   defaultImageDataUrl,
+  busy = false,
   onSubmit,
 }: ProfileSetupProps) {
   const [name, setName] = useState(defaultName ?? "");
@@ -85,11 +87,11 @@ export default function ProfileSetup({
         <Button
           type="button"
           variant="primary"
-          disabled={!canContinue}
+          disabled={!canContinue || busy}
           onClick={() => onSubmit({ name: name.trim(), imageDataUrl })}
           className="w-full py-3 text-[15px]"
         >
-          Continue to templates
+          {busy ? "Saving…" : "Continue to templates"}
         </Button>
       </div>
     </Card>
