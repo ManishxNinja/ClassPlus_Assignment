@@ -1,0 +1,14 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aur" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" style="stop-color:#0f766e"/>
+      <stop offset="35%" style="stop-color:#6366f1"/>
+      <stop offset="70%" style="stop-color:#a855f7"/>
+      <stop offset="100%" style="stop-color:#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="#020617"/>
+  <path d="M0 400 Q360 200 720 380 T1080 320 L1080 1080 L0 1080 Z" fill="url(#aur)" opacity="0.55"/>
+  <path d="M0 520 Q400 360 800 500 T1080 420 L1080 1080 L0 1080 Z" fill="url(#aur)" opacity="0.35"/>
+  <text x="540" y="880" text-anchor="middle" font-family="Georgia,serif" font-size="52" fill="#e0e7ff" opacity="0.4">New beginnings</text>
+</svg>

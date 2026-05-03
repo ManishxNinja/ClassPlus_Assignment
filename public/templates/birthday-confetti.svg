@@ -1,0 +1,22 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bc-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b"/>
+      <stop offset="50%" style="stop-color:#4c1d95"/>
+      <stop offset="100%" style="stop-color:#be185d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bc-bg)"/>
+  <circle cx="180" cy="200" r="16" fill="#fbbf24" opacity="0.9"/>
+  <circle cx="920" cy="160" r="22" fill="#22d3ee" opacity="0.85"/>
+  <circle cx="340" cy="880" r="18" fill="#f472b6" opacity="0.9"/>
+  <circle cx="780" cy="920" r="14" fill="#a78bfa" opacity="0.85"/>
+  <circle cx="500" cy="120" r="12" fill="#34d399" opacity="0.9"/>
+  <path d="M200 400 L220 460 L160 430 L220 430 L200 490 Z" fill="#fde047" opacity="0.95"/>
+  <path d="M880 520 L900 580 L840 550 L900 550 L880 610 Z" fill="#fb923c" opacity="0.9"/>
+  <path d="M120 700 L140 760 L80 730 L140 730 L120 790 Z" fill="#e879f9" opacity="0.85"/>
+  <circle cx="640" cy="360" r="8" fill="#fff" opacity="0.5"/>
+  <circle cx="720" cy="420" r="6" fill="#fff" opacity="0.4"/>
+  <circle cx="400" cy="300" r="5" fill="#fff" opacity="0.45"/>
+  <text x="540" y="520" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="72" fill="#fef3c7" opacity="0.35">CELEBRATE</text>
+</svg>

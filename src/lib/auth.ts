@@ -1,16 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
 
 const providers: NextAuthOptions["providers"] = [
-  CredentialsProvider({
-    id: "guest",
-    name: "Guest",
-    credentials: {},
-    async authorize() {
-      return { id: "guest-user", name: "Guest User", email: "guest@local.dev" };
-    },
-  }),
   CredentialsProvider({
     id: "email",
     name: "Email",
@@ -31,15 +22,6 @@ const providers: NextAuthOptions["providers"] = [
   }),
 ];
 
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-  providers.push(
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-  );
-}
-
 export const authOptions: NextAuthOptions = {
   providers,
   session: {
@@ -50,4 +32,3 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET ?? "local-development-secret",
 };
-

@@ -19,7 +19,7 @@ Approach used:
 - Next.js App Router (TypeScript)
 - Tailwind CSS
 - Zustand with persisted local state
-- NextAuth for authentication strategy compatibility
+- NextAuth with an email credentials provider (demo session — no OAuth)
 - HTML Canvas API for merging layers
 - Playwright for smoke flow coverage
 

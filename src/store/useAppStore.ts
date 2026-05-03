@@ -2,9 +2,10 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { GreetingTemplate } from "@/types/template";
 import { TemplateCategory } from "@/types/template";
 
-type AuthMethod = "google" | "email" | "guest";
+type AuthMethod = "email";
 
 interface Profile {
   name: string;
@@ -20,6 +21,8 @@ interface EditorSettings {
   photoSize: number;
 }
 
+const MAX_USER_TEMPLATES = 12;
+
 interface AppState {
   hydrated: boolean;
   isAuthenticated: boolean;
@@ -29,8 +32,10 @@ interface AppState {
   selectedCategory: TemplateCategory | "All";
   pendingTemplateId: string | null;
   editor: EditorSettings;
+  /** User-uploaded backgrounds (stored as data URLs in localStorage). */
+  userTemplates: GreetingTemplate[];
   setHydrated: (hydrated: boolean) => void;
-  login: (method: AuthMethod) => void;
+  login: () => void;
   logout: () => void;
   setProfile: (profile: Profile) => void;
   setPremium: (value: boolean) => void;
@@ -38,6 +43,8 @@ interface AppState {
   setPendingTemplateId: (templateId: string | null) => void;
   setEditor: (editor: Partial<EditorSettings>) => void;
   resetEditor: () => void;
+  addUserTemplate: (template: GreetingTemplate) => void;
+  removeUserTemplate: (id: string) => void;
 }
 
 const defaultEditor: EditorSettings = {
@@ -60,11 +67,12 @@ export const useAppStore = create<AppState>()(
       selectedCategory: "All",
       pendingTemplateId: null,
       editor: defaultEditor,
+      userTemplates: [],
       setHydrated: (hydrated) => set({ hydrated }),
-      login: (method) =>
+      login: () =>
         set({
           isAuthenticated: true,
-          authMethod: method,
+          authMethod: "email",
         }),
       logout: () =>
         set({
@@ -87,6 +95,17 @@ export const useAppStore = create<AppState>()(
           },
         })),
       resetEditor: () => set({ editor: defaultEditor }),
+      addUserTemplate: (template) =>
+        set((state) => {
+          const next = [...state.userTemplates.filter((t) => t.id !== template.id), template];
+          const trimmed =
+            next.length > MAX_USER_TEMPLATES ? next.slice(next.length - MAX_USER_TEMPLATES) : next;
+          return { userTemplates: trimmed };
+        }),
+      removeUserTemplate: (id) =>
+        set((state) => ({
+          userTemplates: state.userTemplates.filter((t) => t.id !== id),
+        })),
     }),
     {
       name: "custom-greetings-app-store",
@@ -99,6 +118,7 @@ export const useAppStore = create<AppState>()(
         profile: state.profile,
         isPremium: state.isPremium,
         selectedCategory: state.selectedCategory,
+        userTemplates: state.userTemplates,
       }),
     },
   ),

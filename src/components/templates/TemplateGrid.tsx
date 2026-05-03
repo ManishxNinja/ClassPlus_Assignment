@@ -9,6 +9,7 @@ interface TemplateGridProps {
   userName: string;
   profileImage: string;
   onSelectTemplate: (template: GreetingTemplate) => void;
+  onRemoveCustom?: (id: string) => void;
 }
 
 export default function TemplateGrid({
@@ -17,6 +18,7 @@ export default function TemplateGrid({
   userName,
   profileImage,
   onSelectTemplate,
+  onRemoveCustom,
 }: TemplateGridProps) {
   const filteredTemplates =
     selectedCategory === "All"
@@ -25,6 +27,11 @@ export default function TemplateGrid({
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {filteredTemplates.length === 0 ? (
+        <p className="col-span-full rounded-2xl border border-dashed border-zinc-300 bg-white/60 py-12 text-center text-sm text-zinc-500">
+          No templates here yet{selectedCategory === "Custom" ? " — upload your own image above." : "."}
+        </p>
+      ) : null}
       {filteredTemplates.map((template) => (
         <TemplateCardPreview
           key={template.id}
@@ -32,6 +39,11 @@ export default function TemplateGrid({
           userName={userName}
           profileImage={profileImage}
           onClick={() => onSelectTemplate(template)}
+          onRemove={
+            template.category === "Custom" && onRemoveCustom
+              ? () => onRemoveCustom(template.id)
+              : undefined
+          }
         />
       ))}
     </div>

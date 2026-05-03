@@ -1,0 +1,25 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="nybg" cx="50%" cy="80%" r="70%">
+      <stop offset="0%" style="stop-color:#1e1b4b"/>
+      <stop offset="100%" style="stop-color:#020617"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#nybg)"/>
+  <!-- firework bursts -->
+  <g stroke-linecap="round" opacity="0.85">
+    <g stroke="#f472b6" stroke-width="3">
+      <line x1="300" y1="280" x2="300" y2="220"/><line x1="300" y1="280" x2="340" y2="260"/><line x1="300" y1="280" x2="260" y2="260"/>
+      <line x1="300" y1="280" x2="330" y2="300"/><line x1="300" y1="280" x2="270" y2="300"/><line x1="300" y1="280" x2="300" y2="320"/>
+    </g>
+    <g stroke="#38bdf8" stroke-width="3">
+      <line x1="760" y1="340" x2="760" y2="280"/><line x1="760" y1="340" x2="800" y2="320"/><line x1="760" y1="340" x2="720" y2="320"/>
+      <line x1="760" y1="340" x2="790" y2="360"/><line x1="760" y1="340" x2="730" y2="360"/><line x1="760" y1="340" x2="760" y2="380"/>
+    </g>
+    <g stroke="#fbbf24" stroke-width="3">
+      <line x1="520" y1="200" x2="520" y2="140"/><line x1="520" y1="200" x2="560" y2="180"/><line x1="520" y1="200" x2="480" y2="180"/>
+      <line x1="520" y1="200" x2="550" y2="220"/><line x1="520" y1="200" x2="490" y2="220"/><line x1="520" y1="200" x2="520" y2="240"/>
+    </g>
+  </g>
+  <text x="540" y="640" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="80" fill="#fbbf24" opacity="0.35">CHEERS</text>
+</svg>

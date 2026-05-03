@@ -23,9 +23,16 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
   }, [hydrated, isAuthenticated, router]);
 
   if (!hydrated || !isAuthenticated) {
-    return <p className="p-8 text-center text-sm text-zinc-600">Loading session...</p>;
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4">
+        <div
+          className="h-10 w-10 animate-spin rounded-full border-2 border-violet-200 border-t-violet-600"
+          aria-hidden
+        />
+        <p className="text-sm font-medium text-zinc-600">Preparing your studio…</p>
+      </div>
+    );
   }
 
   return <>{children}</>;
 }
-

@@ -1,0 +1,16 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tro" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9"/>
+      <stop offset="100%" style="stop-color:#1e40af"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#tro)"/>
+  <path d="M420 320 L660 320 L640 480 L440 480 Z" fill="#fbbf24" opacity="0.95"/>
+  <path d="M440 480 L640 480 L620 560 L460 560 Z" fill="#d97706"/>
+  <rect x="500" y="560" width="80" height="120" fill="#92400e"/>
+  <rect x="420" y="680" width="240" height="40" rx="8" fill="#fbbf24"/>
+  <path d="M320 360 L420 360 L420 420 L340 420 Q300 400 320 360 Z" fill="#94a3b8"/>
+  <path d="M760 360 L660 360 L660 420 L740 420 Q780 400 760 360 Z" fill="#94a3b8"/>
+  <text x="540" y="880" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="56" fill="#e0f2fe" opacity="0.5">YOU DID IT</text>
+</svg>

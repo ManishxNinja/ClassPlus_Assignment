@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "@/components/ui/Button";
+
 interface UpsellModalProps {
   open: boolean;
   onClose: () => void;
@@ -10,30 +12,44 @@ export default function UpsellModal({ open, onClose, onUpgrade }: UpsellModalPro
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-zinc-900">Premium template</h2>
-        <p className="mt-2 text-sm text-zinc-600">
-          This template is available in the premium plan. Upgrade to unlock all premium cards.
-        </p>
-        <div className="mt-5 flex justify-end gap-2">
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-xl border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700"
-          >
-            Maybe later
-          </button>
-          <button
-            type="button"
-            onClick={onUpgrade}
-            className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500"
-          >
-            Upgrade now
-          </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/55 p-4 backdrop-blur-sm">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="upsell-title"
+        className="w-full max-w-md overflow-hidden rounded-3xl border border-white/50 bg-white shadow-[0_32px_64px_-24px_rgba(91,33,182,0.45)]"
+      >
+        <div className="bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 px-6 py-8 text-white">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">Premium</p>
+          <h2 id="upsell-title" className="font-display mt-2 text-2xl font-semibold leading-snug">
+            Unlock this template
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-white/90">
+            Upgrade once for this demo to access every premium layout—your profile overlays carry through
+            automatically.
+          </p>
+        </div>
+        <div className="space-y-4 bg-white px-6 py-5">
+          <ul className="space-y-2 text-sm text-zinc-600">
+            <li className="flex gap-2">
+              <span className="text-violet-500">✓</span>
+              Full library of premium backgrounds
+            </li>
+            <li className="flex gap-2">
+              <span className="text-violet-500">✓</span>
+              Same export quality as free templates
+            </li>
+          </ul>
+          <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
+            <Button variant="outline" onClick={onClose} className="sm:min-w-[7rem]">
+              Not now
+            </Button>
+            <Button variant="primary" onClick={onUpgrade} className="sm:min-w-[9rem]">
+              Upgrade & continue
+            </Button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-

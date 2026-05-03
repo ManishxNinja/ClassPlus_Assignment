@@ -1,19 +1,19 @@
 import { test, expect } from "@playwright/test";
 
-test("guest login to share flow", async ({ page }) => {
+test("email login to share flow", async ({ page }) => {
   await page.goto("/login");
-  await page.getByRole("button", { name: "Continue as Guest" }).click();
+  await page.getByLabel(/email address/i).fill("alex@example.com");
+  await page.getByRole("button", { name: "Continue with email" }).click();
 
-  await page.getByPlaceholder("Your name").fill("Alex");
+  await page.getByLabel(/display name/i).fill("Alex");
   await page.setInputFiles('input[type="file"]', "public/templates/birthday.svg");
-  await page.getByRole("button", { name: "Save profile and continue" }).click();
+  await page.getByRole("button", { name: "Continue to templates" }).click();
 
-  await expect(page.getByRole("heading", { name: /Welcome, Alex/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Hello, Alex/i })).toBeVisible();
 
-  await page.getByRole("button", { name: "Birthday Blast" }).click();
+  await page.getByRole("button", { name: /Sunburst Party/i }).click();
   await expect(page.getByRole("heading", { name: "Birthday Blast" })).toBeVisible();
 
-  await page.getByRole("button", { name: "Generate Preview" }).click();
+  await page.getByRole("button", { name: "Generate preview" }).click();
   await expect(page.getByAltText("Merged greeting output")).toBeVisible();
 });
-

@@ -1,0 +1,19 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="diya" cx="50%" cy="100%" r="80%">
+      <stop offset="0%" style="stop-color:#1c1917"/>
+      <stop offset="100%" style="stop-color:#0c0a09"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#diya)"/>
+  <circle cx="540" cy="120" r="3" fill="#fde68a"/><circle cx="420" cy="200" r="2" fill="#fef08a"/><circle cx="660" cy="180" r="2.5" fill="#fef9c3"/>
+  <circle cx="300" cy="400" r="2" fill="#fef08a"/><circle cx="780" cy="360" r="2" fill="#fde68a"/><circle cx="900" cy="500" r="1.5" fill="#fff"/>
+  <path d="M500 700 Q540 620 580 700 L560 780 Q540 800 520 780 Z" fill="#ea580c" opacity="0.9"/>
+  <ellipse cx="540" cy="690" rx="25" ry="8" fill="#fbbf24" opacity="0.95"/>
+  <path d="M360 720 Q400 640 440 720 L420 800 Q400 820 380 800 Z" fill="#c2410c" opacity="0.85"/>
+  <ellipse cx="400" cy="710" rx="20" ry="6" fill="#fbbf24" opacity="0.9"/>
+  <path d="M640 720 Q680 640 720 720 L700 800 Q680 820 660 800 Z" fill="#c2410c" opacity="0.85"/>
+  <ellipse cx="680" cy="710" rx="20" ry="6" fill="#fbbf24" opacity="0.9"/>
+  <circle cx="540" cy="660" r="8" fill="#fef08a" opacity="0.95"/>
+  <text x="540" y="480" text-anchor="middle" font-family="Georgia,serif" font-size="56" fill="#fef3c7" opacity="0.55">Shubh Deepawali</text>
+</svg>

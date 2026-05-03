@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import LoginOptions from "@/components/auth/LoginOptions";
+import EmailLogin from "@/components/auth/EmailLogin";
 import ProfileSetup from "@/components/auth/ProfileSetup";
 import { useAppStore } from "@/store/useAppStore";
 
@@ -26,39 +26,47 @@ export default function LoginPage() {
   }, [isAuthenticated, profile, router]);
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col justify-center gap-6 px-4 py-8">
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-zinc-900">Custom Greetings App</h1>
-        <p className="text-sm text-zinc-600">
-          Login, choose a template, personalize your card, and share it instantly.
+    <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-4 py-12 sm:px-6 lg:flex-row lg:items-center lg:gap-16 lg:py-0">
+      <div className="mb-10 max-w-xl space-y-5 lg:mb-0">
+        <p className="inline-flex rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-violet-800 ring-1 ring-violet-200/80">
+          Custom wishes · Web app
         </p>
+        <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight text-zinc-900 sm:text-5xl">
+          Greetings that feel{" "}
+          <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+            truly yours
+          </span>
+          .
+        </h1>
+        <p className="text-base leading-relaxed text-zinc-600">
+          Sign in with email, add your name and photo, then layer them onto beautiful templates and share
+          the finished card in one tap.
+        </p>
+        <ul className="flex flex-wrap gap-3 text-sm text-zinc-600">
+          <li className="rounded-full bg-white/60 px-3 py-1 ring-1 ring-white/80">Live preview on every card</li>
+          <li className="rounded-full bg-white/60 px-3 py-1 ring-1 ring-white/80">Premium unlock flow</li>
+          <li className="rounded-full bg-white/60 px-3 py-1 ring-1 ring-white/80">Share merged PNG</li>
+        </ul>
       </div>
 
-      {!isAuthenticated ? (
-        <LoginOptions
-          onGoogleLogin={() => {
-            login("google");
-            void signIn("google", { redirect: false });
-          }}
-          onEmailLogin={(email) => {
-            login("email");
-            void signIn("email", { redirect: false, email });
-          }}
-          onGuestLogin={() => {
-            login("guest");
-            void signIn("guest", { redirect: false });
-          }}
-        />
-      ) : (
-        <ProfileSetup
-          defaultName={profile?.name}
-          onSubmit={(value) => {
-            setProfile(value);
-            router.push("/home");
-          }}
-        />
-      )}
+      <div className="flex w-full flex-col items-stretch lg:max-w-md">
+        {!isAuthenticated ? (
+          <EmailLogin
+            onEmailLogin={(email) => {
+              login();
+              void signIn("email", { redirect: false, email });
+            }}
+          />
+        ) : (
+          <ProfileSetup
+            defaultName={profile?.name}
+            onSubmit={(value) => {
+              setProfile(value);
+              router.push("/home");
+            }}
+          />
+        )}
+      </div>
     </main>
   );
 }
-

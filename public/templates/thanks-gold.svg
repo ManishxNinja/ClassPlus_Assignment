@@ -1,0 +1,14 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fefce8"/>
+      <stop offset="50%" style="stop-color:#fde68a"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="#422006"/>
+  <rect x="80" y="80" width="920" height="920" rx="24" fill="none" stroke="url(#gold)" stroke-width="4" opacity="0.9"/>
+  <rect x="140" y="140" width="800" height="800" rx="16" fill="none" stroke="#fbbf24" stroke-width="1.5" opacity="0.5"/>
+  <text x="540" y="520" text-anchor="middle" font-family="Georgia,serif" font-size="72" fill="#fef3c7" opacity="0.55">Grateful</text>
+  <text x="540" y="600" text-anchor="middle" font-family="Georgia,serif" font-size="36" fill="#fcd34d" opacity="0.45">from the heart</text>
+</svg>

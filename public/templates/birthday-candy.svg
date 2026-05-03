@@ -1,0 +1,18 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="candy" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fda4af"/>
+      <stop offset="33%" style="stop-color:#fde68a"/>
+      <stop offset="66%" style="stop-color:#a5f3fc"/>
+      <stop offset="100%" style="stop-color:#d8b4fe"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#candy)"/>
+  <path d="M0 260 Q540 200 1080 260 L1080 320 Q540 380 0 320 Z" fill="#fff" opacity="0.25"/>
+  <path d="M0 720 Q540 660 1080 720 L1080 800 Q540 860 0 800 Z" fill="#fff" opacity="0.2"/>
+  <circle cx="200" cy="200" r="40" fill="#fb7185" opacity="0.5"/>
+  <circle cx="880" cy="880" r="55" fill="#818cf8" opacity="0.45"/>
+  <circle cx="920" cy="200" r="30" fill="#fbbf24" opacity="0.55"/>
+  <circle cx="140" cy="900" r="35" fill="#34d399" opacity="0.5"/>
+  <text x="540" y="530" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="68" fill="#9f1239" opacity="0.35">SWEET DAY</text>
+</svg>

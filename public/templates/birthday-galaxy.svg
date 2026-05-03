@@ -1,0 +1,21 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgx" cx="30%" cy="20%" r="80%">
+      <stop offset="0%" style="stop-color:#312e81"/>
+      <stop offset="45%" style="stop-color:#1e1b4b"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7"/>
+      <stop offset="100%" style="stop-color:#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bgx)"/>
+  <ellipse cx="540" cy="540" rx="380" ry="360" fill="none" stroke="url(#ring)" stroke-width="3" opacity="0.35"/>
+  <ellipse cx="540" cy="540" rx="300" ry="280" fill="none" stroke="#6366f1" stroke-width="2" opacity="0.25"/>
+  <circle cx="200" cy="180" r="2" fill="#fff"/><circle cx="420" cy="120" r="1.5" fill="#fff"/><circle cx="880" cy="240" r="2" fill="#fff"/>
+  <circle cx="760" cy="140" r="1" fill="#fff"/><circle cx="300" cy="800" r="2" fill="#fde68a"/><circle cx="900" cy="720" r="1.5" fill="#fff"/>
+  <circle cx="160" cy="500" r="1" fill="#fff"/><circle cx="640" cy="900" r="2" fill="#e9d5ff"/>
+  <text x="540" y="480" text-anchor="middle" font-family="Georgia,serif" font-size="64" fill="#c4b5fd" opacity="0.5">Another Year</text>
+  <text x="540" y="560" text-anchor="middle" font-family="Georgia,serif" font-size="42" fill="#f9a8d4" opacity="0.45">Around the Sun</text>
+</svg>

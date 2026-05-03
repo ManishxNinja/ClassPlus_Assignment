@@ -1,0 +1,19 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="night" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c4a6e"/>
+      <stop offset="100%" style="stop-color:#172554"/>
+    </linearGradient>
+    <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" style="stop-color:#fef9c3"/>
+      <stop offset="100%" style="stop-color:#fef9c3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#night)"/>
+  <circle cx="760" cy="220" r="90" fill="#fefce8" opacity="0.95"/>
+  <circle cx="780" cy="200" r="75" fill="url(#night)"/>
+  <rect width="1080" height="1080" fill="url(#moon)" opacity="0.15"/>
+  <circle cx="180" cy="160" r="2" fill="#e0f2fe"/><circle cx="340" cy="120" r="1.5" fill="#e0f2fe"/><circle cx="500" cy="100" r="1" fill="#e0f2fe"/>
+  <path d="M0 650 Q270 600 540 640 T1080 620 L1080 1080 L0 1080 Z" fill="#0e7490" opacity="0.35"/>
+  <text x="540" y="880" text-anchor="middle" font-family="Georgia,serif" font-size="48" fill="#bae6fd" opacity="0.5">Under the same moon</text>
+</svg>

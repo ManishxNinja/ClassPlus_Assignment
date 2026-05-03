@@ -4,7 +4,8 @@ export type TemplateCategory =
   | "Festivals"
   | "New Year"
   | "Thanks"
-  | "Congrats";
+  | "Congrats"
+  | "Custom";
 
 export interface GreetingTemplate {
   id: string;

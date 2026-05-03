@@ -12,22 +12,24 @@ export default function CategoryTabs({ selectedCategory, onChange }: CategoryTab
   const options: Array<TemplateCategory | "All"> = ["All", ...CATEGORIES];
 
   return (
-    <div className="flex flex-wrap gap-2">
-      {options.map((category) => (
-        <button
-          key={category}
-          type="button"
-          onClick={() => onChange(category)}
-          className={`rounded-full px-4 py-2 text-sm font-medium ${
-            selectedCategory === category
-              ? "bg-indigo-600 text-white"
-              : "bg-white text-zinc-700 ring-1 ring-zinc-200"
-          }`}
-        >
-          {category}
-        </button>
-      ))}
+    <div className="-mx-1 flex gap-2 overflow-x-auto pb-1">
+      {options.map((category) => {
+        const active = selectedCategory === category;
+        return (
+          <button
+            key={category}
+            type="button"
+            onClick={() => onChange(category)}
+            className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+              active
+                ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md shadow-violet-500/25"
+                : "bg-white/80 text-zinc-700 ring-1 ring-zinc-200/90 hover:bg-white hover:ring-violet-200"
+            }`}
+          >
+            {category}
+          </button>
+        );
+      })}
     </div>
   );
 }
-

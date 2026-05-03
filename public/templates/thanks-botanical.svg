@@ -1,0 +1,14 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ecfdf5"/>
+      <stop offset="100%" style="stop-color:#d1fae5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#leaf)"/>
+  <path d="M80 900 Q200 400 400 200 Q600 80 1000 300 L1000 1080 L80 1080 Z" fill="#6ee7b7" opacity="0.35"/>
+  <path d="M0 1080 L0 600 Q300 500 500 700 Q700 900 1080 750 L1080 1080 Z" fill="#34d399" opacity="0.25"/>
+  <ellipse cx="200" cy="300" rx="80" ry="40" fill="#059669" opacity="0.3" transform="rotate(-35 200 300)"/>
+  <ellipse cx="880" cy="400" rx="90" ry="45" fill="#10b981" opacity="0.28" transform="rotate(25 880 400)"/>
+  <text x="540" y="480" text-anchor="middle" font-family="Georgia,serif" font-size="56" fill="#047857" opacity="0.35">Thank you</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4c0519"/>
+      <stop offset="50%" style="stop-color:#881337"/>
+      <stop offset="100%" style="stop-color:#be123c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" style="stop-color:#fda4af" stop-opacity="0.4"/>
+      <stop offset="100%" style="stop-color:#4c0519" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#vel)"/>
+  <rect width="1080" height="1080" fill="url(#glow)"/>
+  <path d="M540 280 Q640 400 540 520 Q440 400 540 280" fill="none" stroke="#fecdd3" stroke-width="2" opacity="0.4"/>
+  <path d="M320 700 Q540 620 760 700" fill="none" stroke="#fb7185" stroke-width="1.5" opacity="0.35"/>
+  <text x="540" y="720" text-anchor="middle" font-family="Georgia,serif" font-size="56" fill="#fecdd3" opacity="0.45">Forever</text>
+</svg>
